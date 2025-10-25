@@ -41,7 +41,7 @@ class PlacemarkListActivity : AppCompatActivity(), PlacemarkListener {
     }
 
     override fun onPlacemarkDeleteClick(placemark: PlacemarkModel) {
-        app.placemarks.remove(placemark)
+        app.placemarks.delete(placemark)
         binding.recyclerView.adapter?.notifyItemRemoved(app.placemarks.indexOf(placemark))
     }
 
@@ -71,7 +71,7 @@ class PlacemarkListActivity : AppCompatActivity(), PlacemarkListener {
             ActivityResultContracts.StartActivityForResult()
         ) {
             if (it.resultCode == Activity.RESULT_OK) {
-                (binding.recyclerView.adapter)?.notifyItemRangeChanged(0, app.placemarks.size)
+                (binding.recyclerView.adapter)?.notifyItemRangeChanged(0, app.placemarks.size())
             }
         }
 }
