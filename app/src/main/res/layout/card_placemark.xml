@@ -27,5 +27,13 @@
             android:layout_below="@id/placemarkTitle"
             tools:text="A Description" />
 
+        <ImageButton
+            android:id="@+id/btnDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="end"
+            android:contentDescription="@string/button_delete"
+            android:src="@android:drawable/ic_menu_delete" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

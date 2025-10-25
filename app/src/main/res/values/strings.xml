@@ -5,4 +5,5 @@
     <string name="hint_placemarkDesc">Company description</string>
     <string name="menu_addPlacemark">Add</string>
     <string name="button_cancel">Cancel</string>
+    <string name="button_delete">Delete</string>
 </resources>
