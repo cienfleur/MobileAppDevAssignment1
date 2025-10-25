@@ -8,6 +8,7 @@ import androidx.core.view.WindowInsetsCompat
 import ie.setu.mobileappdevassignment1.databinding.ActivityPlacemarkBinding
 import timber.log.Timber
 import timber.log.Timber.i
+import com.google.android.material.snackbar.Snackbar
 
 
 class PlacemarkActivity : AppCompatActivity() {
@@ -26,7 +27,16 @@ class PlacemarkActivity : AppCompatActivity() {
         i("Placemark Activity started..")
 
         binding.btnAdd.setOnClickListener() {
-            i("add Button Pressed")
+            val placemarkTitle = binding.placemarkTitle.text.toString()
+            if (placemarkTitle.isNotEmpty()) {
+                i("add Button Pressed: $placemarkTitle")
+            }
+            else {
+                Snackbar
+                    .make(it,"Please Enter a title", Snackbar.LENGTH_LONG)
+                    .show()
+            }
         }
+
     }
 }
