@@ -11,6 +11,7 @@ import ie.setu.mobileappdevassignment1.models.PlacemarkModel
 import ie.setu.mobileappdevassignment1.databinding.ActivityPlacemarkBinding
 import ie.setu.mobileappdevassignment1.main.MainApp
 import timber.log.Timber
+import timber.log.Timber.i
 
 class PlacemarkActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPlacemarkBinding
@@ -37,14 +38,31 @@ class PlacemarkActivity : AppCompatActivity() {
                 for (i in app.placemarks.indices) {
                     Timber.i("placemark[$i]: ${app.placemarks[i]}")
                 }
-            }
-            else {
+            } else {
                 Snackbar
 
-                    .make(it,"Please Enter a title", Snackbar.LENGTH_LONG)
+                    .make(it, "Please Enter a title", Snackbar.LENGTH_LONG)
                     .show()
             }
         }
 
+        binding.btnAdd.setOnClickListener {
+            placemark.title = binding.placemarkTitle.text.toString()
+            placemark.description = binding.placemarkDesc.text.toString()
+            if (placemark.title.isNotEmpty()) {
+                i("add Button Pressed: ${placemark.title}")
+                app.placemarks.add(placemark.copy())
+                for (i in app.placemarks.indices) {
+                    i("placemark[$i]: ${app.placemarks[i]}")
+                }
+                setResult(RESULT_OK)
+                finish()
+            } else {
+                Snackbar
+
+                    .make(it, "Please Enter a title", Snackbar.LENGTH_LONG)
+                    .show()
+            }
+        }
     }
 }
