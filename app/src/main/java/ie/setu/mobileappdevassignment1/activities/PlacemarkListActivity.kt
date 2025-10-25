@@ -19,9 +19,13 @@ import ie.setu.mobileappdevassignment1.R
 
 
 
+interface PlacemarkListener {
+    fun onPlacemarkClick(placemark: PlacemarkModel)
+    fun onPlacemarkDeleteClick(placemark: PlacemarkModel)
+}
 
+class PlacemarkListActivity : AppCompatActivity(), PlacemarkListener {
 
-class PlacemarkListActivity : AppCompatActivity() {
 
     lateinit var app: MainApp
     private lateinit var binding: ActivityPlacemarkListBinding
@@ -36,8 +40,19 @@ class PlacemarkListActivity : AppCompatActivity() {
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.adapter = PlacemarkAdapter(app.placemarks)
+        binding.recyclerView.adapter = PlacemarkAdapter(app.placemarks, this)
     }
+
+    override fun onPlacemarkDeleteClick(placemark: PlacemarkModel) {
+        app.placemarks.remove(placemark)
+        binding.recyclerView.adapter?.notifyItemRemoved(app.placemarks.indexOf(placemark))
+    }
+
+    override fun onPlacemarkClick(placemark: PlacemarkModel) {
+        val launcherIntent = Intent(this, PlacemarkActivity::class.java)
+        getResult.launch(launcherIntent)
+    }
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
@@ -64,7 +79,7 @@ class PlacemarkListActivity : AppCompatActivity() {
         }
 }
 
-class PlacemarkAdapter constructor(private var placemarks: List<PlacemarkModel>) :
+class PlacemarkAdapter constructor(private var placemarks: List<PlacemarkModel>, private val listener: PlacemarkListener) :
     RecyclerView.Adapter<PlacemarkAdapter.MainHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {
@@ -77,7 +92,7 @@ class PlacemarkAdapter constructor(private var placemarks: List<PlacemarkModel>)
 
     override fun onBindViewHolder(holder: MainHolder, position: Int) {
         val placemark = placemarks[holder.adapterPosition]
-        holder.bind(placemark)
+        holder.bind(placemark, listener)
     }
 
     override fun getItemCount(): Int = placemarks.size
@@ -85,9 +100,11 @@ class PlacemarkAdapter constructor(private var placemarks: List<PlacemarkModel>)
     class MainHolder(private val binding : CardPlacemarkBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(placemark: PlacemarkModel) {
+        fun bind(placemark: PlacemarkModel, listener: PlacemarkListener) {
             binding.placemarkTitle.text = placemark.title
             binding.description.text = placemark.description
+            binding.root.setOnClickListener { listener.onPlacemarkClick(placemark) }
+            binding.btnDelete.setOnClickListener { listener.onPlacemarkDeleteClick(placemark) }
         }
     }
 }
