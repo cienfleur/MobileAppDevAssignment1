@@ -32,8 +32,9 @@ class PlacemarkActivity : AppCompatActivity() {
 
         binding.btnAdd.setOnClickListener() {
             placemark.title = binding.placemarkTitle.text.toString()
+            placemark.description = binding.placemarkDesc.text.toString()
             if (placemark.title.isNotEmpty()) {
-                Timber.i("placemark added: $placemark.copy")
+                Timber.i("placemark added: title: ${placemark.title}, description: ${placemark.description}")
                 placemarks.add(placemark.copy())
                 Timber.i("placemarks List: $placemarks")
 
