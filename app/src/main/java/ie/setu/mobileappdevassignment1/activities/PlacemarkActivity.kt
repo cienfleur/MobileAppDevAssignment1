@@ -1,21 +1,25 @@
-package ie.setu.mobileappdevassignment1
+package ie.setu.mobileappdevassignment1.activities
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.android.material.snackbar.Snackbar
+import ie.setu.mobileappdevassignment1.R
+import ie.setu.mobileappdevassignment1.models.PlacemarkModel
 import ie.setu.mobileappdevassignment1.databinding.ActivityPlacemarkBinding
 import timber.log.Timber
-import timber.log.Timber.i
-import com.google.android.material.snackbar.Snackbar
-
 
 class PlacemarkActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPlacemarkBinding
+
+    val placemarks = ArrayList<PlacemarkModel>()
+
+    var placemark = PlacemarkModel()
     override fun onCreate(savedInstanceState: Bundle?) {
-        binding = ActivityPlacemarkBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
+        binding = ActivityPlacemarkBinding.inflate(layoutInflater)
         enableEdgeToEdge()
         setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -24,15 +28,19 @@ class PlacemarkActivity : AppCompatActivity() {
             insets
         }
         Timber.plant(Timber.DebugTree())
-        i("Placemark Activity started..")
+        Timber.i("Placemark Activity started..")
 
         binding.btnAdd.setOnClickListener() {
-            val placemarkTitle = binding.placemarkTitle.text.toString()
-            if (placemarkTitle.isNotEmpty()) {
-                i("add Button Pressed: $placemarkTitle")
+            placemark.title = binding.placemarkTitle.text.toString()
+            if (placemark.title.isNotEmpty()) {
+                Timber.i("placemark added: $placemark.copy")
+                placemarks.add(placemark.copy())
+                Timber.i("placemarks List: $placemarks")
+
             }
             else {
                 Snackbar
+
                     .make(it,"Please Enter a title", Snackbar.LENGTH_LONG)
                     .show()
             }
