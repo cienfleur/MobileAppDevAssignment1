@@ -14,9 +14,7 @@ import timber.log.Timber
 
 class PlacemarkActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPlacemarkBinding
-
-    var app : MainApp? = null
-
+    lateinit var app: MainApp
     var placemark = PlacemarkModel()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,9 +33,9 @@ class PlacemarkActivity : AppCompatActivity() {
             placemark.description = binding.placemarkDesc.text.toString()
             if (placemark.title.isNotEmpty()) {
                 Timber.i("placemark added: title: ${placemark.title}, description: ${placemark.description}")
-                app!!.placemarks.add(placemark.copy())
-                for (i in app!!.placemarks.indices) {
-                    Timber.i("placemark[$i]: ${app!!.placemarks[i]}")
+                app.placemarks.add(placemark.copy())
+                for (i in app.placemarks.indices) {
+                    Timber.i("placemark[$i]: ${app.placemarks[i]}")
                 }
             }
             else {
