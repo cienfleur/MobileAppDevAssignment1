@@ -27,8 +27,6 @@ class PlacemarkActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        Timber.plant(Timber.DebugTree())
-        Timber.i("Placemark Activity started..")
 
         binding.btnAdd.setOnClickListener() {
             placemark.title = binding.placemarkTitle.text.toString()
