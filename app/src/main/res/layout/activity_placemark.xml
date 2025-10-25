@@ -80,6 +80,17 @@
                     android:text="@string/button_addPlacemark"
                     android:textColor="@color/colorPrimary"
                     android:textSize="20sp" />
+                <Button
+                    android:id="@+id/btnCancel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:background="@color/colorPrimary"
+                    android:padding="8dp"
+                    android:stateListAnimator="@null"
+                    android:text="@string/button_cancel"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20sp" />
             </LinearLayout>
         </ScrollView>
 

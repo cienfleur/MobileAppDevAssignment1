@@ -10,8 +10,11 @@ import ie.setu.mobileappdevassignment1.R
 import ie.setu.mobileappdevassignment1.models.PlacemarkModel
 import ie.setu.mobileappdevassignment1.databinding.ActivityPlacemarkBinding
 import ie.setu.mobileappdevassignment1.main.MainApp
+import android.view.Menu
 import timber.log.Timber
 import timber.log.Timber.i
+import android.content.Intent
+
 
 class PlacemarkActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPlacemarkBinding
@@ -22,6 +25,8 @@ class PlacemarkActivity : AppCompatActivity() {
         binding = ActivityPlacemarkBinding.inflate(layoutInflater)
         enableEdgeToEdge()
         setContentView(binding.root)
+        binding.toolbarAdd.title = title
+        setSupportActionBar(binding.toolbarAdd)
         app = application as MainApp
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -29,22 +34,6 @@ class PlacemarkActivity : AppCompatActivity() {
             insets
         }
 
-        binding.btnAdd.setOnClickListener() {
-            placemark.title = binding.placemarkTitle.text.toString()
-            placemark.description = binding.placemarkDesc.text.toString()
-            if (placemark.title.isNotEmpty()) {
-                Timber.i("placemark added: title: ${placemark.title}, description: ${placemark.description}")
-                app.placemarks.add(placemark.copy())
-                for (i in app.placemarks.indices) {
-                    Timber.i("placemark[$i]: ${app.placemarks[i]}")
-                }
-            } else {
-                Snackbar
-
-                    .make(it, "Please Enter a title", Snackbar.LENGTH_LONG)
-                    .show()
-            }
-        }
 
         binding.btnAdd.setOnClickListener {
             placemark.title = binding.placemarkTitle.text.toString()
@@ -63,6 +52,10 @@ class PlacemarkActivity : AppCompatActivity() {
                     .make(it, "Please Enter a title", Snackbar.LENGTH_LONG)
                     .show()
             }
+        }
+
+        binding.btnCancel.setOnClickListener {
+            finish()
         }
     }
 }
