@@ -9,12 +9,13 @@ import com.google.android.material.snackbar.Snackbar
 import ie.setu.mobileappdevassignment1.R
 import ie.setu.mobileappdevassignment1.models.PlacemarkModel
 import ie.setu.mobileappdevassignment1.databinding.ActivityPlacemarkBinding
+import ie.setu.mobileappdevassignment1.main.MainApp
 import timber.log.Timber
 
 class PlacemarkActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPlacemarkBinding
 
-    val placemarks = ArrayList<PlacemarkModel>()
+    var app : MainApp? = null
 
     var placemark = PlacemarkModel()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,6 +23,7 @@ class PlacemarkActivity : AppCompatActivity() {
         binding = ActivityPlacemarkBinding.inflate(layoutInflater)
         enableEdgeToEdge()
         setContentView(binding.root)
+        app = application as MainApp
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -33,9 +35,10 @@ class PlacemarkActivity : AppCompatActivity() {
             placemark.description = binding.placemarkDesc.text.toString()
             if (placemark.title.isNotEmpty()) {
                 Timber.i("placemark added: title: ${placemark.title}, description: ${placemark.description}")
-                placemarks.add(placemark.copy())
-                Timber.i("placemarks List: $placemarks")
-
+                app!!.placemarks.add(placemark.copy())
+                for (i in app!!.placemarks.indices) {
+                    Timber.i("placemark[$i]: ${app!!.placemarks[i]}")
+                }
             }
             else {
                 Snackbar
