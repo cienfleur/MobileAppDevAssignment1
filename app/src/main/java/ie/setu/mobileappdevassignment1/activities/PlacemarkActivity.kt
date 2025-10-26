@@ -70,11 +70,9 @@ class PlacemarkActivity : AppCompatActivity() {
         val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-        // Create an instance of DatePickerDialog
         val datePickerDialog = DatePickerDialog(
-            this, // The context (your activity)
+            this,
             { _, selectedYear, selectedMonth, selectedDay ->
-                // This is the listener that gets triggered when the user picks a date
                 val selectedDate = "$selectedDay/${selectedMonth + 1}/$selectedYear"
                 binding.placemarkDate.setText(selectedDate)
             },
@@ -83,6 +81,6 @@ class PlacemarkActivity : AppCompatActivity() {
             day
         )
 
-        datePickerDialog.show() // Show the dialog to the user
+        datePickerDialog.show()
     }
 }
