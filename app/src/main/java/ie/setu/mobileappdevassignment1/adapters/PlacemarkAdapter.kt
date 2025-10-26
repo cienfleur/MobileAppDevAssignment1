@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ie.setu.mobileappdevassignment1.activities.PlacemarkListener
 import ie.setu.mobileappdevassignment1.databinding.CardPlacemarkBinding
+import ie.setu.mobileappdevassignment1.models.PlacemarkJSONStore
 import ie.setu.mobileappdevassignment1.models.PlacemarkModel
 
 class PlacemarkAdapter constructor(private var placemarks: List<PlacemarkModel>, private val listener: PlacemarkListener) :

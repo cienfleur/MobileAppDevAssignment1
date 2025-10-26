@@ -43,11 +43,13 @@ class PlacemarkActivity : AppCompatActivity() {
         binding.btnAdd.setOnClickListener {
             placemark.title = binding.placemarkTitle.text.toString()
             placemark.description = binding.placemarkDesc.text.toString()
+            placemark.country = binding.placemarkCountry.text.toString()
+            placemark.date = binding.placemarkDate.text.toString()
             if (placemark.title.isNotEmpty()) {
                 i("add Button Pressed: ${placemark.title}")
-                app.placemarks.add(placemark.copy())
-                for (i in app.placemarks.indices) {
-                    i("placemark[$i]: ${app.placemarks[i]}")
+                app.placemarks.create(placemark.copy())
+                for (i in app.placemarks.findAll()) {
+                    i("placemark[$i]: ${app.placemarks}")
                 }
                 setResult(RESULT_OK)
                 finish()

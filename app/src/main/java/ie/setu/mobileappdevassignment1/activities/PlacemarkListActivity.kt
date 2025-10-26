@@ -37,7 +37,7 @@ class PlacemarkListActivity : AppCompatActivity(), PlacemarkListener {
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.adapter = PlacemarkAdapter(app.placemarks, this)
+        binding.recyclerView.adapter = PlacemarkAdapter(app.placemarks.findAll(), this)
     }
 
     override fun onPlacemarkDeleteClick(placemark: PlacemarkModel) {
@@ -47,7 +47,7 @@ class PlacemarkListActivity : AppCompatActivity(), PlacemarkListener {
 
     override fun onPlacemarkClick(placemark: PlacemarkModel) {
         val launcherIntent = Intent(this, PlacemarkActivity::class.java)
-        getResult.launch(launcherIntent)
+        getEditResult.launch(launcherIntent)
     }
 
 
@@ -60,18 +60,27 @@ class PlacemarkListActivity : AppCompatActivity(), PlacemarkListener {
         when (item.itemId) {
             R.id.item_add -> {
                 val launcherIntent = Intent(this, PlacemarkActivity::class.java)
-                getResult.launch(launcherIntent)
+                getAddResult.launch(launcherIntent)
             }
         }
         return super.onOptionsItemSelected(item)
     }
 
-    private val getResult =
+    private val getAddResult =
         registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) {
             if (it.resultCode == Activity.RESULT_OK) {
-                (binding.recyclerView.adapter)?.notifyItemRangeChanged(0, app.placemarks.size)
+                (binding.recyclerView.adapter)?.notifyItemRangeChanged(0, app.placemarks.size())
             }
         }
+    private val getEditResult =
+        registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) {
+            if (it.resultCode == Activity.RESULT_OK) {
+                (binding.recyclerView.adapter)?.notifyDataSetChanged()
+            }
+        }
+
 }

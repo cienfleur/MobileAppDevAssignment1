@@ -52,4 +52,7 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.timber)
+    implementation("org.slf4j:slf4j-simple:2.0.17")
+    implementation ("io.github.microutils:kotlin-logging:3.0.5")
+    implementation("com.google.code.gson:gson:2.13.2")
 }
